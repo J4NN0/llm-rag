@@ -1,0 +1,7 @@
+This is a test file in order to showcase the fine-tuning of the model
+My name is Federico
+I'm 28 years old
+I lived in Italy for more 20 years
+I'm a software engineer
+I'm currently located in Berlin
+I'm an ex-competitive swimmer
