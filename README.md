@@ -75,5 +75,5 @@ Within the RAG there are five key stages:
 # Resources
 
 - [LlamaIndex Documentation](https://docs.llamaindex.ai/en/stable/index.html#)
-- [Large language models](https://seantrott.substack.com/p/large-language-models-explained)
+- [Large language models, explained with a minimum of math and jargon](https://seantrott.substack.com/p/large-language-models-explained)
 - [Building LLM applications for production](https://huyenchip.com/2023/04/11/llm-engineering.html)
