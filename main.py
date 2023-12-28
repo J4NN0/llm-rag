@@ -1,6 +1,23 @@
-import logging
 from config import Config
 from loader import DataLoader
+
+
+def run_chat_engine(index):
+    # Create chat engine that can be used to query the index
+    chat_engine = index.as_chat_engine(streaming=True, similarity_top_k=5)
+    while True:
+        query_str = input("Q: ")
+        response = chat_engine.chat(query_str)
+        response.print_response_stream()
+
+
+def run_query_engine(index):
+    # Create query engine that can be used to query the index
+    query_engine = index.as_query_engine(streaming=True, similarity_top_k=5)
+    while True:
+        query_str = input("Q&A: ")
+        response = query_engine.query(query_str)
+        response.print_response_stream()
 
 
 def main():
@@ -16,19 +33,11 @@ def main():
     index = data_loader.load()
 
     if config.is_engine_chat():
-        # Create chat engine that can be used to query the index
-        chat_engine = index.as_chat_engine(streaming=True, similarity_top_k=5)
-        while True:
-            query_str = input("Q: ")
-            response = chat_engine.chat(query_str)
-            response.print_response_stream()
+        run_chat_engine(index)
     elif config.is_engine_query():
-        # Create query engine that can be used to query the index
-        query_engine = index.as_query_engine(streaming=True, similarity_top_k=5)
-        response = query_engine.query("How long Federico lived in Sicily?")
-        response.print_response_stream()
+        run_query_engine(index)
     else:
-        print(f"Invalid query engine specified in config file")
+        print(f"Invalid query engine specified in config file: {config.engine}")
         exit(-1)
 
 
