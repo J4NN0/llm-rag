@@ -63,8 +63,13 @@ Within the RAG there are five key stages:
     ```
 
 3. Set up `config.ini` file
-   - Set your OpenAI API key, you can get one in [platform.openai](https://platform.openai.com/api-keys)
-   - Define the query engine you want to use: either `chat` or `query`
+   - Set your OpenAI API key. If you don't have one, you can get one in [platform.openai](https://platform.openai.com/api-keys)
+   - Create/Update your custom data within the `data` folder and specify oath accordingly.
+   
+   And optionally:
+      - Set level output verbosity: `DEBUG` for verbose or `INFO` for less
+      - Define the index engine you want to use: `CHAT` for chat engine or `QUERY` for Q&A engine
+      - The index storage path: `./storage` by default
 
 4. Run the script
 
