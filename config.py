@@ -27,7 +27,7 @@ class Config:
         self.wiki_pages_file_path = config['DATA']['WIKIPEDIA_PAGES']
 
         self.storage_dir = config['INDEX']['STORAGE']
-        self.query_engine = config['INDEX']['QUERY_ENGINE'].casefold()
+        self.engine = config['INDEX']['ENGINE'].casefold()
 
     def __set_env_openai_key(self):
         os.environ[self.OPENAI_API_KEY_ENV_VAR] = self.openai_key
@@ -41,7 +41,7 @@ class Config:
         logging.basicConfig(stream=sys.stdout, level=level)
 
     def is_engine_chat(self):
-        return self.query_engine == "chat"
+        return self.engine == "chat"
 
     def is_engine_query(self):
-        return self.query_engine == "query"
+        return self.engine == "query"
