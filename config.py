@@ -1,4 +1,6 @@
 import configparser
+import logging
+import sys
 import os
 import openai
 
@@ -15,6 +17,10 @@ class Config:
         self.openai_key = config['OPENAI']['API_KEY']
         self.__set_env_openai_key()
 
+        # Logging level
+        self.log_level = config['LOGGING']['LEVEL'].casefold()
+        self.__set_log_level()
+
         # The best file reader will be automatically selected (from the given file extensions).
         self.simple_data_dir = config['DATA']['SIMPLE_DIR']
         # Wikipedia pages will be downloaded from the web with WikipediaReader.
@@ -26,6 +32,13 @@ class Config:
     def __set_env_openai_key(self):
         os.environ[self.OPENAI_API_KEY_ENV_VAR] = self.openai_key
         openai.api_key = os.environ[self.OPENAI_API_KEY_ENV_VAR]
+
+    def __set_log_level(self):
+        level = logging.INFO
+        if self.log_level == "debug":
+            level = logging.DEBUG
+
+        logging.basicConfig(stream=sys.stdout, level=level)
 
     def is_engine_chat(self):
         return self.query_engine == "chat"

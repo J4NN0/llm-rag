@@ -1,40 +1,19 @@
-import os
-import os.path
+import logging
 from config import Config
-from loader import load_wiki
-from llama_index import (
-    VectorStoreIndex,
-    SimpleDirectoryReader,
-    StorageContext,
-    load_index_from_storage,
-    ServiceContext
-)
+from loader import DataLoader
 
 
 def main():
+    print("Loading config ...")
     config = Config()
 
-    # Check if storage already exists
-    if not os.path.exists(config.storage_dir):
-        print(f"Loading documents from {config.simple_data_dir} directory ...")
-        documents = SimpleDirectoryReader(config.simple_data_dir).load_data()
-
-        print(f"Loading documents from Wikipedia ...")
-        wiki_documents = load_wiki(config.wiki_pages_file_path)
-        documents.extend(wiki_documents)
-
-        print("Building index over the documents ...")
-        service_context = ServiceContext.from_defaults(chunk_size=512)
-        index = VectorStoreIndex.from_documents(documents, service_context=service_context, show_progress=True)
-
-        print(f"Persisting index to {config.storage_dir} storage ...")
-        index.storage_context.persist(persist_dir=config.storage_dir)
-    else:
-        print(f"Loading existing index from {config.storage_dir} storage ...")
-        storage_context = StorageContext.from_defaults(persist_dir=config.storage_dir)
-
-        print("Loading index from storage ...")
-        index = load_index_from_storage(storage_context)
+    print("Loading data ...")
+    data_loader = DataLoader(
+        storage_dir=config.storage_dir,
+        simple_data_dir=config.simple_data_dir,
+        wiki_pages_file_path=config.wiki_pages_file_path
+    )
+    index = data_loader.load()
 
     if config.is_engine_chat():
         # Create chat engine that can be used to query the index
