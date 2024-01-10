@@ -58,6 +58,7 @@ class DataLoader:
 
         self.logger.info(f"Loading documents from {self.simple_data_dir} directory ...")
         documents = SimpleDirectoryReader(self.simple_data_dir).load_data()
+        self.logger.info(f"Loaded {len(documents)} docs")
 
         return documents
 
@@ -72,7 +73,7 @@ class DataLoader:
         loader = WikipediaReader()
 
         wiki_pages = self.__get_pages(self.wiki_pages_file_path)
-        self.logger.info(f"Found {len(wiki_pages)} tot pages to load")
+        self.logger.info(f"Found {len(wiki_pages)} pages to load")
 
         self.logger.info("Loading Wikipedia pages ...")
         documents = loader.load_data(pages=wiki_pages)
