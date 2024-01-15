@@ -38,7 +38,11 @@ Within the RAG there are five key stages:
 
 3. Set up `config.ini` file
    - Set your OpenAI API key. If you don't have one, you can get one in [platform.openai](https://platform.openai.com/api-keys)
-   - Create/Update your custom data within the `data/simple` folder. These [file types](https://docs.llamaindex.ai/en/stable/module_guides/loading/simpledirectoryreader.html#supported-file-types) are supported.
+   - Create and/or update your custom data as follows:
+     - In `data/simple` folder for these [file types](https://docs.llamaindex.ai/en/stable/module_guides/loading/simpledirectoryreader.html#supported-file-types).  Please note only that list of file types are supported within this directory.
+     - In `data/json` only for `.json` files. 
+     - In `data/web` for web pages:
+       - Use `wikipedia_pages.txt` for Wikipedia pages.
 
    And optionally:
       - Set level output verbosity: `DEBUG` for verbose or `INFO` for less.

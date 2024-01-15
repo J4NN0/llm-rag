@@ -28,6 +28,7 @@ def main():
     data_loader = DataLoader(
         storage_dir=config.storage_dir,
         simple_data_dir=config.simple_data_dir,
+        json_data_dir=config.json_data_dir,
         wiki_pages_file_path=config.wiki_pages_file_path
     )
     index = data_loader.load()
@@ -37,7 +38,7 @@ def main():
     elif config.is_engine_query():
         run_query_engine(index)
     else:
-        print(f"Invalid query engine specified in config file: {config.engine}")
+        print(f"Invalid query engine specified in {config.CONFIG_FILE_PATH} config file: {config.engine}")
         exit(-1)
 
 

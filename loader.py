@@ -1,5 +1,6 @@
 import logging
 import os.path
+from pathlib import Path
 from llama_index import (
     SimpleDirectoryReader,
     download_loader,
@@ -11,15 +12,18 @@ from llama_index import (
 
 
 class DataLoader:
-    def __init__(self, storage_dir, simple_data_dir, wiki_pages_file_path):
+    __LOGGER_NAME = "data_loader"
+
+    def __init__(self, storage_dir, simple_data_dir, json_data_dir, wiki_pages_file_path):
         # Set logger
-        self.logger = logging.getLogger("data_loader")
+        self.logger = logging.getLogger(self.__LOGGER_NAME)
 
         # Index storage directory
         self.storage_dir = storage_dir
 
         # Data directories and files to load
         self.simple_data_dir = simple_data_dir
+        self.json_data_dir = json_data_dir
         self.wiki_pages_file_path = wiki_pages_file_path
 
     def load(self):
@@ -30,6 +34,7 @@ class DataLoader:
 
         if not self.__storage_exists():
             documents = self.__load_simple()
+            documents.extend(self.__load_json())
             documents.extend(self.__load_wiki())
 
             self.logger.info("Building index over the documents ...")
@@ -57,14 +62,31 @@ class DataLoader:
         """
 
         self.logger.info(f"Loading documents from {self.simple_data_dir} directory ...")
+        # The best file reader will be automatically selected from the given file extensions
         documents = SimpleDirectoryReader(self.simple_data_dir).load_data()
+        self.logger.info(f"Loaded {len(documents)} docs")
+
+        return documents
+
+    def __load_json(self):
+        """
+        Loads the documents from the given JSON file path
+        :return: List of llama-index documents
+        """
+
+        self.logger.debug("Downloading JSON reader ...")
+        JSONReader = download_loader("JSONReader")
+        loader = JSONReader()
+
+        self.logger.info("Loading JSON docs ...")
+        documents = loader.load_data(Path(self.json_data_dir), is_jsonl=False)
         self.logger.info(f"Loaded {len(documents)} docs")
 
         return documents
 
     def __load_wiki(self):
         """
-        Loads the wikipedia pages from the given wikipedia file path
+        Loads the wikipedia pages from the given wikipedia file path.
         :return: List of llama-index documents
         """
 
@@ -73,10 +95,10 @@ class DataLoader:
         loader = WikipediaReader()
 
         wiki_pages = self.__get_pages(self.wiki_pages_file_path)
-        self.logger.info(f"Found {len(wiki_pages)} pages to load")
 
-        self.logger.info("Loading Wikipedia pages ...")
+        self.logger.info(f"Loading Wikipedia pages ...")
         documents = loader.load_data(pages=wiki_pages)
+        self.logger.info(f"Loaded {len(documents)} docs")
 
         return documents
 

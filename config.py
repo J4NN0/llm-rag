@@ -7,7 +7,10 @@ import openai
 
 class Config:
     CONFIG_FILE_PATH = "config.ini"
-    OPENAI_API_KEY_ENV_VAR = "OPENAI_API_KEY"
+
+    __OPENAI_API_KEY_ENV_VAR = "OPENAI_API_KEY"
+    __INDEX_ENGINE_CHAT = "chat"
+    __INDEX_ENGINE_QUERY = "query"
 
     def __init__(self):
         config = configparser.ConfigParser()
@@ -21,17 +24,18 @@ class Config:
         self.log_level = config['LOGGING']['LEVEL'].casefold()
         self.__set_log_level()
 
-        # The best file reader will be automatically selected (from the given file extensions).
+        # Data
         self.simple_data_dir = config['DATA']['SIMPLE_DIR']
-        # Wikipedia pages will be downloaded from the web with WikipediaReader.
+        self.json_data_dir = config['DATA']['JSON_DIR']
         self.wiki_pages_file_path = config['DATA']['WIKIPEDIA_PAGES']
 
+        # Index
         self.storage_dir = config['INDEX']['STORAGE']
         self.engine = config['INDEX']['ENGINE'].casefold()
 
     def __set_env_openai_key(self):
-        os.environ[self.OPENAI_API_KEY_ENV_VAR] = self.openai_key
-        openai.api_key = os.environ[self.OPENAI_API_KEY_ENV_VAR]
+        os.environ[self.__OPENAI_API_KEY_ENV_VAR] = self.openai_key
+        openai.api_key = os.environ[self.__OPENAI_API_KEY_ENV_VAR]
 
     def __set_log_level(self):
         level = logging.INFO
@@ -41,7 +45,7 @@ class Config:
         logging.basicConfig(stream=sys.stdout, level=level)
 
     def is_engine_chat(self):
-        return self.engine == "chat"
+        return self.engine == self.__INDEX_ENGINE_CHAT
 
     def is_engine_query(self):
-        return self.engine == "query"
+        return self.engine == self.__INDEX_ENGINE_QUERY
