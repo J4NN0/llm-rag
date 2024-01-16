@@ -56,6 +56,8 @@ Within the RAG there are five key stages:
      - In `data/web` for web pages:
        - Use `wikipedia_pages.txt` for Wikipedia pages.
 
+     In case you want to connect it to more data sources, please refer to [Data Connectors for LlamaIndex](https://docs.llamaindex.ai/en/stable/api_reference/readers.html#classes) or write your own data reader.
+
    And optionally:
       - Set level output verbosity: `DEBUG` for verbose or `INFO` for less.
       - Define the index engine you want to use: `CHAT` for chat engine or `QUERY` for Q&A engine.
