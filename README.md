@@ -66,7 +66,7 @@ Within the RAG there are five key stages:
       - Define the index engine you want to use: `CHAT` for chat engine or `QUERY` for Q&A engine.
       - The index storage path: `./storage` by default.
 
-5. Run the chatbot
+4. Run the chatbot
 
     ```bash
     python3 main.py
