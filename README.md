@@ -25,20 +25,23 @@ Within the RAG there are five key stages:
 
 1. Clone the repository
 
-    ```bash
-    git clone https://github.com/J4NN0/themis-ai.git
-    cd themis-ai
+    ```
+    git clone https://github.com/J4NN0/llama-index-rag.git
+    cd llama-index-rag
     ```
 
 2. Install requirements
 
-    ```bash
+    ```
     pip install -r requirements.txt
     ```
 
 3. Set up `config.ini` file
-   - Set your OpenAI API key. If you don't have one, you can get one in [platform.openai](https://platform.openai.com/api-keys)
-   - Create and/or update your custom data as follows:
+   1. Set which LLM you want to use
+       - `LOCAL` to use [llama2](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/blob/main/llama-2-7b-chat.ggmlv3.q8_0.bin) locally (no OpenAI API key required).
+       - `DEFAULT` to use OpenAI's GPT Model via API (OpenAI API key required).
+   2. Set your OpenAI API key if you selected `DEFAULT` in the previous step. If you don't have one, you can get one in [platform.openai](https://platform.openai.com/api-keys)
+   3. Create and/or update your custom data as follows:
      - In `data/simple` folder for following [file types](https://docs.llamaindex.ai/en/stable/module_guides/loading/simpledirectoryreader.html#supported-file-types) (please note only this list of file types is supported within this directory):
        - `.csv` - comma-separated values 
        - `.docx` - Microsoft Word 
@@ -63,7 +66,7 @@ Within the RAG there are five key stages:
       - Define the index engine you want to use: `CHAT` for chat engine or `QUERY` for Q&A engine.
       - The index storage path: `./storage` by default.
 
-4. Run the chatbot
+5. Run the chatbot
 
     ```bash
     python3 main.py
