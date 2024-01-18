@@ -1,5 +1,6 @@
 from config import Config
 from loader import DataLoader
+from llm import LLM
 
 
 def run_chat_engine(index):
@@ -26,12 +27,19 @@ def main():
 
     print("Loading data ...")
     data_loader = DataLoader(
-        storage_dir=config.storage_dir,
         simple_data_dir=config.simple_data_dir,
         json_data_dir=config.json_data_dir,
         wiki_pages_file_path=config.wiki_pages_file_path
     )
-    index = data_loader.load()
+    docs = data_loader.load()
+
+    print("Loading index ...")
+    llm = LLM(
+        llm_type=config.llm_type,
+        documents=docs,
+        storage_dir=config.storage_dir
+    )
+    index = llm.get_index()
 
     if config.is_engine_chat():
         run_chat_engine(index)

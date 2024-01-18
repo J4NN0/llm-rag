@@ -9,6 +9,9 @@ class Config:
     CONFIG_FILE_PATH = "config.ini"
 
     __OPENAI_API_KEY_ENV_VAR = "OPENAI_API_KEY"
+
+    __LOG_LEVEL_DEBUG = "debug"
+
     __INDEX_ENGINE_CHAT = "chat"
     __INDEX_ENGINE_QUERY = "query"
 
@@ -20,7 +23,7 @@ class Config:
         self.openai_key = config['OPENAI']['API_KEY']
         self.__set_env_openai_key()
 
-        # Logging level
+        # Logging
         self.log_level = config['LOGGING']['LEVEL'].casefold()
         self.__set_log_level()
 
@@ -29,9 +32,10 @@ class Config:
         self.json_data_dir = config['DATA']['JSON_DIR']
         self.wiki_pages_file_path = config['DATA']['WIKIPEDIA_PAGES']
 
-        # Index
+        # Index & LLM
         self.storage_dir = config['INDEX']['STORAGE']
         self.engine = config['INDEX']['ENGINE'].casefold()
+        self.llm_type = config['INDEX']['LLM_TYPE'].casefold()
 
     def __set_env_openai_key(self):
         os.environ[self.__OPENAI_API_KEY_ENV_VAR] = self.openai_key
@@ -39,7 +43,7 @@ class Config:
 
     def __set_log_level(self):
         level = logging.INFO
-        if self.log_level == "debug":
+        if self.log_level == self.__LOG_LEVEL_DEBUG:
             level = logging.DEBUG
 
         logging.basicConfig(stream=sys.stdout, level=level)
