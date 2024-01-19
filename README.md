@@ -12,7 +12,7 @@ This repository provides documentation and resources for understanding the basic
 
 LLMs are a type of artificial intelligence model designed to understand and generate human-like text based on the patterns and structures present in vast amounts of textual data. These models have become increasingly sophisticated thanks to advances in deep learning, particularly using transformer architectures.
 
-While LLMs are trained on large datasets, they lack knowledge of your specific data. Retrieval-Augmented Generation (RAG) bridges this gap by integrating your data. Within RAG, your data undergoes a loading and preparation process called 'indexing'. User queries refine the data into the most relevant context. This, combined with your query and prompt, is presented to RAG to generate a response. For chatbot or agent development, mastering RAG techniques is essential for seamless data integration into your application.
+While LLMs are trained on large datasets, they lack knowledge of your specific data. Retrieval-Augmented Generation (RAG) bridges this gap by integrating your data. Within RAG, your data undergoes a loading and preparation process called 'indexing'. User queries refine the data into the most relevant context. Combined with your query and prompt, this is presented to RAG to generate a response. For chatbot or agent development, mastering RAG techniques is essential for seamless data integration into your application.
 
 Within the RAG there are five key stages:
 - **Loading**: This involves acquiring your data from its source, whether it's stored in text files, PDFs, another website, a database, or an API.
@@ -25,16 +25,12 @@ Within the RAG there are five key stages:
 
 1. Clone the repository
 
-    ```
-    git clone https://github.com/J4NN0/llama-index-rag.git
-    cd llama-index-rag
-    ```
+       git clone https://github.com/J4NN0/llama-index-rag.git
+       cd llama-index-rag
 
 2. Install requirements
 
-    ```
-    pip install -r requirements.txt
-    ```
+       pip install -r requirements.txt
 
 3. Set up `config.ini` file
    1. Set which LLM you want to use
@@ -54,11 +50,11 @@ Within the RAG there are five key stages:
        - `.pdf` - Portable Document Format 
        - `.png` - Portable Network Graphics 
        - `.ppt`, `.pptm`, `.pptx` - Microsoft PowerPoint
-       - `json` - JSON file
+       - `.json` - JSON file
 
-      For Wikipedia pages, you can use `.wikipedia` file extension and insert as many Wikipedia page title as you want in the file. 
+      For Wikipedia pages, you can use `.wikipedia` file extension and insert as many Wikipedia page titles as you want in the file. 
        - Note that only the page name is required, not the full URL.
-       - For instance for Berlin wikipedia page (at [wikipedia.org/wiki/Berlin](https://en.wikipedia.org/wiki/Berlin)), just insert `Berlin` in the file.
+       - For instance for the Berlin Wikipedia page (at [wikipedia.org/wiki/Berlin](https://en.wikipedia.org/wiki/Berlin)), just insert `Berlin` in the file.
 
      In case you want to connect it to more data sources, please refer to [Data Connectors for LlamaIndex](https://docs.llamaindex.ai/en/stable/api_reference/readers.html#classes), [LlamaHub](https://llamahub.ai/) or write your data reader.
 
@@ -69,9 +65,7 @@ Within the RAG there are five key stages:
 
 4. Run the chatbot
 
-    ```
-    python3 main.py
-    ```
+       python3 main.py
 
 # Resources
 
