@@ -40,10 +40,10 @@ Within the RAG there are five key stages:
 
 4. Update the variables accordingly
    - Decide if you want to use a local LLM or OpenAI API ChatGPT model
-     - If you want to use a local LLM
+     - If you want to use a **local LLM**:
        - Set `MODEL_TYPE` to `LOCAL`.
        - Set `MODEL_NAME` to the name of the model you want to use.
-     - If you want to use OpenAI API
+     - If you want to use OpenAI API **ChatGPT model**:
         - Set `MODEL_TYPE` to `DEFAULT`.
         - Set `OPENAI_API_KEY` to your OpenAI API key. If you don't have one, you can get one in [platform.openai](https://platform.openai.com/api-keys).
 
@@ -84,7 +84,7 @@ In case you want to connect it to more data sources, please refer to [Data Conne
 
 To start chatting with your documents, run the following command:
 
-       python3 main.py
+    python3 main.py
 
 # Resources
 
