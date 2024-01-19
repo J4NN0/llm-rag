@@ -41,8 +41,7 @@ Within the RAG there are five key stages:
        - `LOCAL` to use [llama2](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/blob/main/llama-2-7b-chat.ggmlv3.q8_0.bin) locally (no OpenAI API key required).
        - `DEFAULT` to use OpenAI's GPT Model via API (OpenAI API key required).
    2. Set your OpenAI API key if you selected `DEFAULT` in the previous step. If you don't have one, you can get one in [platform.openai](https://platform.openai.com/api-keys)
-   3. Create and/or update your custom data as follows:
-     - In `data/simple` folder for following [file types](https://docs.llamaindex.ai/en/stable/module_guides/loading/simpledirectoryreader.html#supported-file-types) (please note only this list of file types is supported within this directory):
+   3. Create and/or update your custom files in `data` folder. The following file types are supported (please note only this list of file types is supported within this directory):
        - `.csv` - comma-separated values 
        - `.docx` - Microsoft Word 
        - `.epub` - EPUB ebook format 
@@ -55,9 +54,11 @@ Within the RAG there are five key stages:
        - `.pdf` - Portable Document Format 
        - `.png` - Portable Network Graphics 
        - `.ppt`, `.pptm`, `.pptx` - Microsoft PowerPoint
-     - In `data/json` only for `.json` files. 
-     - In `data/web` for web pages:
-       - Use `wikipedia_pages.txt` for Wikipedia pages.
+       - `json` - JSON file
+
+      For Wikipedia pages, you can use `.wikipedia` file extension and insert as many Wikipedia page title as you want in the file. 
+       - Note that only the page name is required, not the full URL.
+       - For instance for Berlin wikipedia page (at [wikipedia.org/wiki/Berlin](https://en.wikipedia.org/wiki/Berlin)), just insert `Berlin` in the file.
 
      In case you want to connect it to more data sources, please refer to [Data Connectors for LlamaIndex](https://docs.llamaindex.ai/en/stable/api_reference/readers.html#classes), [LlamaHub](https://llamahub.ai/) or write your data reader.
 
@@ -66,9 +67,9 @@ Within the RAG there are five key stages:
       - Define the index engine you want to use: `CHAT` for chat engine or `QUERY` for Q&A engine.
       - The index storage path: `./storage` by default.
 
-5. Run the chatbot
+4. Run the chatbot
 
-    ```bash
+    ```
     python3 main.py
     ```
 

@@ -22,18 +22,11 @@ def run_query_engine(index):
 
 
 def main():
-    print("Loading config ...")
     config = Config()
 
-    print("Loading data ...")
-    data_loader = DataLoader(
-        simple_data_dir=config.simple_data_dir,
-        json_data_dir=config.json_data_dir,
-        wiki_pages_file_path=config.wiki_pages_file_path
-    )
+    data_loader = DataLoader(data_dir=config.data_dir)
     docs = data_loader.load()
 
-    print("Loading index ...")
     llm = LLM(
         llm_type=config.llm_type,
         documents=docs,

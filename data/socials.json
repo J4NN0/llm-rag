@@ -1,14 +1,8 @@
 {
-  "nickname": "J4NN0",
-  "name": "Federico",
-  "city": "Berlin",
-  "country": "Germany",
-  "age": 28,
   "email": "wtf@llamaindex.rag",
   "socials": {
     "website": "https://j4nn0.github.io/",
     "github": "https://github.com/J4NN0",
     "linkedin": "https://www.linkedin.com/in/gianno-federico/"
-  },
-  "swim": "My favourite stroke is breaststroke"
+  }
 }

@@ -28,9 +28,7 @@ class Config:
         self.__set_log_level()
 
         # Data
-        self.simple_data_dir = config['DATA']['SIMPLE_DIR']
-        self.json_data_dir = config['DATA']['JSON_DIR']
-        self.wiki_pages_file_path = config['DATA']['WIKIPEDIA_PAGES']
+        self.data_dir = config['DATA']['DIR']
 
         # Index & LLM
         self.storage_dir = config['INDEX']['STORAGE']
