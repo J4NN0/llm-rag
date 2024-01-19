@@ -36,7 +36,7 @@ Within the RAG there are five key stages:
 
 3. Copy the example.env template into .env and source them however you like:
        
-       cp env.sample .env
+       cp .sample.env .env
 
 4. Update the variables accordingly
    - Decide if you want to use a local LLM or OpenAI API ChatGPT model
