@@ -25,20 +25,26 @@ Within the RAG there are five key stages:
 
 # Environment Setup
 
-1. Clone the repository
+1. The project has been tested with Python `3.10.11`. To check your Python version run
+
+       python3 --version
+
+   If you have a different one, you can download version `3.10.X` in the [Python releases archive](https://www.python.org/downloads/). 
+
+2. Clone the repository
 
        git clone https://github.com/J4NN0/llama-index-rag.git
        cd llama-index-rag
 
-2. Install requirements
+3. Install requirements
 
        pip install -r requirements.txt
 
-3. Copy the example.env template into .env and source them however you like:
+4. Copy the example.env template into .env and source them however you like
        
        cp .sample.env .env
 
-4. Update the variables accordingly
+5. Update the variables accordingly
    - Decide if you want to use a local LLM or OpenAI API ChatGPT model
      - If you want to use a **local LLM**:
        - Set `MODEL_TYPE` to `LOCAL`.
@@ -47,7 +53,7 @@ Within the RAG there are five key stages:
         - Set `MODEL_TYPE` to `DEFAULT`.
         - Set `OPENAI_API_KEY` to your OpenAI API key. If you don't have one, you can get one in [platform.openai](https://platform.openai.com/api-keys).
 
-5. Optionally, you can update the following variables
+6. Optionally, you can update the following variables
    - `LOGGING_LEVEL` to set level output verbosity:
      - Set to `DEBUG` for verbose 
      - Set to `INFO` for less.
