@@ -59,7 +59,7 @@ Within the RAG there are five key stages:
 
 # Ingest your data
 
-Add all the files you want to chat with in the `data` folder The following file types are supported (please note only this list of file types is supported within this directory):
+Add all the files you want to chat with in the `data` folder. The following file types are supported:
    - `.csv` - comma-separated values 
    - `.docx` - Microsoft Word 
    - `.epub` - EPUB ebook format 
@@ -74,7 +74,7 @@ Add all the files you want to chat with in the `data` folder The following file 
    - `.ppt`, `.pptm`, `.pptx` - Microsoft PowerPoint
    - `.json` - JSON file
 
-For Wikipedia pages, you can use `.wikipedia` file extension and insert as many Wikipedia page titles as you want in the file. 
+You can also ingest data from Wikipedia pages. To do so, you can use `.wikipedia` file extension and insert as many Wikipedia page titles as you want in the file.
    - Note that only the page name is required, not the full URL.
    - For instance for the Berlin Wikipedia page (at [wikipedia.org/wiki/Berlin](https://en.wikipedia.org/wiki/Berlin)), just insert `Berlin` in the file.
 
@@ -82,7 +82,7 @@ In case you want to connect it to more data sources, please refer to [Data Conne
 
 # Chat with your documents
 
-To start chatting with your documents, run the following command:
+To start chatting with your documents, run the following command
 
     python3 main.py
 
