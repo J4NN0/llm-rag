@@ -28,11 +28,15 @@ class DataLoader:
         :return: List of llama-index documents
         """
 
-        self.logger.info(f"Loading documents from {self.data_dir} ...")
-        documents = self.__load_simple()
-        documents.extend(self.__load_json())
-        documents.extend(self.__load_wiki())
-        self.logger.info(f"Loaded {len(documents)} documents")
+        documents = []
+        if self.data_dir is not None:
+            self.logger.info(f"Loading documents from {self.data_dir} directory ...")
+            documents = self.__load_simple()
+            documents.extend(self.__load_json())
+            documents.extend(self.__load_wiki())
+            self.logger.info(f"Loaded {len(documents)} documents")
+        else:
+            self.logger.info("No data directory specified, skipping loading documents")
 
         return documents
 

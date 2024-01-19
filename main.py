@@ -28,9 +28,10 @@ def main():
     docs = data_loader.load()
 
     llm = LLM(
-        llm_type=config.llm_type,
         documents=docs,
-        storage_dir=config.storage_dir
+        storage_dir=config.storage_dir,
+        model_type=config.model_type,
+        model_path=config.model_path
     )
     index = llm.get_index()
 

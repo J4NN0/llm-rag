@@ -13,25 +13,17 @@ from llama_index.llms.llama_utils import messages_to_prompt, completion_to_promp
 class LLM:
     __LOGGER_NAME = "llm"
 
-    __DEFAULT_LLM_TYPE = "default"
-    __LOCAL_LLM_TYPE = "local"
-    __DEFAULT_EMBED_MODEL = "default"
-    __LOCAL_EMBED_MODEL = "local"
-
-    def __init__(self, llm_type, documents, storage_dir):
+    def __init__(self, documents, storage_dir, model_type=None, model_path=None):
         # Set logger
         self.logger = logging.getLogger(self.__LOGGER_NAME)
 
-        # LLM settings
-        self.llm = self.__DEFAULT_LLM_TYPE
-        self.embed_model = self.__DEFAULT_EMBED_MODEL
-        self.llm_type = llm_type
-
-        # List of documents to index
+        # List of documents to index and its storage directory
         self.documents = documents
-
-        # Index storage directory
         self.storage_dir = storage_dir
+
+        # LLM settings
+        self.llm_type = model_type
+        self.llm_path = model_path
 
     def get_index(self):
         """
@@ -39,11 +31,13 @@ class LLM:
         :return: The index from documents or from storage context
         """
 
+        llm = "default"
+        embed_model = "default"
         if self.__is_llm_type_local():
-            self.llm = self.__get_llama2_model()
-            self.embed_model = self.__LOCAL_EMBED_MODEL
+            llm = self.__get_llama2_model()
+            embed_model = "local"
 
-        service_context = ServiceContext.from_defaults(llm=self.llm, chunk_size=512, embed_model=self.embed_model)
+        service_context = ServiceContext.from_defaults(llm=llm, chunk_size=512, embed_model=embed_model)
 
         if not self.__storage_exists():
             self.logger.info("Building index over the documents ...")
@@ -64,7 +58,7 @@ class LLM:
         return os.path.exists(self.storage_dir)
 
     def __is_llm_type_local(self):
-        return self.llm_type == self.__LOCAL_LLM_TYPE
+        return self.llm_type == "local"
 
     @staticmethod
     def __get_llama2_model():

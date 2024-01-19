@@ -30,10 +30,13 @@ class Config:
         # Data
         self.data_dir = config['DATA']['DIR']
 
-        # Index & LLM
+        # Index
         self.storage_dir = config['INDEX']['STORAGE']
         self.engine = config['INDEX']['ENGINE'].casefold()
-        self.llm_type = config['INDEX']['LLM_TYPE'].casefold()
+
+        # LLM
+        self.model_type = config['LLM']['MODEL_TYPE'].casefold()
+        self.model_path = config['LLM']['MODEL_PATH']
 
     def __set_env_openai_key(self):
         os.environ[self.__OPENAI_API_KEY_ENV_VAR] = self.openai_key
