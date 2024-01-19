@@ -25,7 +25,7 @@ Within the RAG there are five key stages:
 
 # Environment Setup
 
-1. The project has been tested with Python `3.10.11`. To check your Python version run
+1. The project has been tested with Python `3.10.X` (version `3.10.11` to be exact). To check your Python version run
 
        python3 --version
 
