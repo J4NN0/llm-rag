@@ -43,10 +43,10 @@ Within the RAG there are five key stages:
        - `.epub` - EPUB ebook format 
        - `.hwp` - Hangul Word Processor 
        - `.ipynb` - Jupyter Notebook 
-       - `.jpeg`, .jpg - JPEG image 
+       - `.jpeg`, `.jpg` - JPEG image 
        - `.mbox` - MBOX email archive 
        - `.md` - Markdown 
-       - `.mp3`, .mp4 - audio and video 
+       - `.mp3`, `.mp4` - audio and video 
        - `.pdf` - Portable Document Format 
        - `.png` - Portable Network Graphics 
        - `.ppt`, `.pptm`, `.pptx` - Microsoft PowerPoint
