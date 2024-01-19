@@ -5,7 +5,9 @@ This repository provides documentation and resources for understanding the basic
 # Table of Contents
 
 - [Retrieval Augmented Generation (RAG)](#retrieval-augmented-generation-rag)
-- [Usage](#usage)
+- [Environment Setup](#environment-setup)
+- [Ingest your data](#ingest-your-data)
+- [Chat with your documents](#chat-with-your-documents)
 - [Resources](#resources)
 
 # Retrieval Augmented Generation (RAG)
@@ -21,7 +23,7 @@ Within the RAG there are five key stages:
 - **Retrieve**: With various indexing strategies available, you can use LLMs data structures for querying, using techniques such as sub-queries, multi-step queries, and hybrid strategies.
 - **Evaluation**: It provides objective metrics to measure the accuracy, fidelity, and speed of your responses to queries.
 
-# Usage
+# Environment Setup
 
 1. Clone the repository
 
@@ -32,38 +34,55 @@ Within the RAG there are five key stages:
 
        pip install -r requirements.txt
 
-3. Set up `config.ini` file
-   1. Set which LLM you want to use
-       - `LOCAL` to use [llama2](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/blob/main/llama-2-7b-chat.ggmlv3.q8_0.bin) locally (no OpenAI API key required).
-       - `DEFAULT` to use OpenAI's GPT Model via API (OpenAI API key required).
-   2. Set your OpenAI API key if you selected `DEFAULT` in the previous step. If you don't have one, you can get one in [platform.openai](https://platform.openai.com/api-keys)
-   3. Create and/or update your custom files in `data` folder. The following file types are supported (please note only this list of file types is supported within this directory):
-       - `.csv` - comma-separated values 
-       - `.docx` - Microsoft Word 
-       - `.epub` - EPUB ebook format 
-       - `.hwp` - Hangul Word Processor 
-       - `.ipynb` - Jupyter Notebook 
-       - `.jpeg`, `.jpg` - JPEG image 
-       - `.mbox` - MBOX email archive 
-       - `.md` - Markdown 
-       - `.mp3`, `.mp4` - audio and video 
-       - `.pdf` - Portable Document Format 
-       - `.png` - Portable Network Graphics 
-       - `.ppt`, `.pptm`, `.pptx` - Microsoft PowerPoint
-       - `.json` - JSON file
+3. Copy the example.env template into .env and source them however you like:
+       
+       cp env.sample .env
 
-      For Wikipedia pages, you can use `.wikipedia` file extension and insert as many Wikipedia page titles as you want in the file. 
-       - Note that only the page name is required, not the full URL.
-       - For instance for the Berlin Wikipedia page (at [wikipedia.org/wiki/Berlin](https://en.wikipedia.org/wiki/Berlin)), just insert `Berlin` in the file.
+4. Update the variables accordingly
+   - Decide if you want to use a local LLM or OpenAI API ChatGPT model
+     - If you want to use a local LLM
+       - Set `MODEL_TYPE` to `LOCAL`.
+       - Set `MODEL_NAME` to the name of the model you want to use.
+     - If you want to use OpenAI API
+        - Set `MODEL_TYPE` to `DEFAULT`.
+        - Set `OPENAI_API_KEY` to your OpenAI API key. If you don't have one, you can get one in [platform.openai](https://platform.openai.com/api-keys).
 
-     In case you want to connect it to more data sources, please refer to [Data Connectors for LlamaIndex](https://docs.llamaindex.ai/en/stable/api_reference/readers.html#classes), [LlamaHub](https://llamahub.ai/) or write your data reader.
+5. Optionally, you can update the following variables
+   - `LOGGING_LEVEL` to set level output verbosity:
+     - Set to `DEBUG` for verbose 
+     - Set to `INFO` for less.
+   - `INDEX_STORAGE` to set the path where to store the index. By default, it is set to `./storage`.
+   - `INDEX_ENGINE` to define the index engine you want to use: 
+     - Set to `CHAT` for chat engine
+     - Set to `QUERY` for Q&A engine.
+   - `DATA_DIR` to set the path where your custom documents are stored. By default, it is set to `./data`.
 
-   And optionally:
-      - Set level output verbosity: `DEBUG` for verbose or `INFO` for less.
-      - Define the index engine you want to use: `CHAT` for chat engine or `QUERY` for Q&A engine.
-      - The index storage path: `./storage` by default.
+# Ingest your data
 
-4. Run the chatbot
+Add all the files you want to chat with in the `data` folder The following file types are supported (please note only this list of file types is supported within this directory):
+   - `.csv` - comma-separated values 
+   - `.docx` - Microsoft Word 
+   - `.epub` - EPUB ebook format 
+   - `.hwp` - Hangul Word Processor 
+   - `.ipynb` - Jupyter Notebook 
+   - `.jpeg`, `.jpg` - JPEG image 
+   - `.mbox` - MBOX email archive 
+   - `.md` - Markdown 
+   - `.mp3`, `.mp4` - audio and video 
+   - `.pdf` - Portable Document Format 
+   - `.png` - Portable Network Graphics 
+   - `.ppt`, `.pptm`, `.pptx` - Microsoft PowerPoint
+   - `.json` - JSON file
+
+For Wikipedia pages, you can use `.wikipedia` file extension and insert as many Wikipedia page titles as you want in the file. 
+   - Note that only the page name is required, not the full URL.
+   - For instance for the Berlin Wikipedia page (at [wikipedia.org/wiki/Berlin](https://en.wikipedia.org/wiki/Berlin)), just insert `Berlin` in the file.
+
+In case you want to connect it to more data sources, please refer to [Data Connectors for LlamaIndex](https://docs.llamaindex.ai/en/stable/api_reference/readers.html#classes), [LlamaHub](https://llamahub.ai/) or write your data reader.
+
+# Chat with your documents
+
+To start chatting with your documents, run the following command:
 
        python3 main.py
 

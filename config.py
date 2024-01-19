@@ -1,4 +1,3 @@
-import configparser
 import logging
 import sys
 import os
@@ -6,8 +5,6 @@ import openai
 
 
 class Config:
-    CONFIG_FILE_PATH = "config.ini"
-
     __OPENAI_API_KEY_ENV_VAR = "OPENAI_API_KEY"
 
     __LOG_LEVEL_DEBUG = "debug"
@@ -16,30 +13,26 @@ class Config:
     __INDEX_ENGINE_QUERY = "query"
 
     def __init__(self):
-        config = configparser.ConfigParser()
-        config.read(self.CONFIG_FILE_PATH)
-
         # OpenAI API key
-        self.openai_key = config['OPENAI']['API_KEY']
-        self.__set_env_openai_key()
+        self.openai_key = os.environ.get('OPENAI_API_KEY')
+        self.__set_openai_key()
 
         # Logging
-        self.log_level = config['LOGGING']['LEVEL'].casefold()
+        self.log_level = os.environ.get('LOGGING_LEVEL').casefold()
         self.__set_log_level()
 
         # Data
-        self.data_dir = config['DATA']['DIR']
+        self.data_dir = os.environ.get('DATA_DIR')
 
         # Index
-        self.storage_dir = config['INDEX']['STORAGE']
-        self.engine = config['INDEX']['ENGINE'].casefold()
+        self.storage_dir = os.environ.get('INDEX_STORAGE')
+        self.engine = os.environ.get('INDEX_ENGINE').casefold()
 
         # LLM
-        self.model_type = config['LLM']['MODEL_TYPE'].casefold()
-        self.model_path = config['LLM']['MODEL_PATH']
+        self.model_type = os.environ.get('MODEL_TYPE').casefold()
+        self.model_path = os.environ.get('MODEL_PATH')
 
-    def __set_env_openai_key(self):
-        os.environ[self.__OPENAI_API_KEY_ENV_VAR] = self.openai_key
+    def __set_openai_key(self):
         openai.api_key = os.environ[self.__OPENAI_API_KEY_ENV_VAR]
 
     def __set_log_level(self):
