@@ -1,6 +1,6 @@
 # llama-index-rag
 
-This repository provides documentation and resources for understanding the basic concepts behind Large Language Models (LLMs) and the process of fine-tuning LLMs with custom data from a variety of sources (e.g. text files, web pages, PDFs, etc.) using [LlamaIndex](https://www.llamaindex.ai/) framework.
+This repository provides documentation and resources for understanding the basic concepts behind Large Language Models (LLMs) and the process of augments LLMs prompt with external custom data from a variety of sources (e.g. text files, web pages, PDFs, etc.) using [LlamaIndex](https://www.llamaindex.ai/) framework.
 
 # Table of Contents
 
