@@ -56,7 +56,7 @@ Within the RAG there are five key stages:
    - `LOGGING_LEVEL` to set level output verbosity:
      - Set to `DEBUG` for verbose 
      - Set to `INFO` for less.
-   - `INDEX_STORAGE` to set the path where to store the index. By default, it is set to `./storage`.
+   - `INDEX_STORAGE` to set the path where to store the index. By default, it is set to `./vector_store`.
    - `INDEX_ENGINE` to define the index engine you want to use: 
      - Set to `CHAT` for chat engine
      - Set to `QUERY` for Q&A engine.
@@ -85,11 +85,29 @@ You can also ingest data from Wikipedia pages. To do so, you can use `.wikipedia
 
 In case you want to connect it to more data sources, please refer to [Data Connectors for LlamaIndex](https://docs.llamaindex.ai/en/stable/api_reference/readers.html#classes), [LlamaHub](https://llamahub.ai/) or write your data reader.
 
+To ingest all the data, run the following command
+
+    python3 main.py --load-data
+
+Or just
+
+    python3 main.py -L
+
+It will create a folder (named `vector_store` by default) containing the local vectorstore. Time of ingestion depends on the size of each single document.
+
 # Chat with your documents
 
 To start chatting with your documents, run the following command
 
-    python3 main.py
+    python3 main.py --query-data
+
+Or just
+
+    python3 main.py -Q
+
+Wait for the local vectorstore to be loaded and then you can start chatting with your documents.
+
+Type `exit` to finish chatting with the documents.
 
 # Resources
 

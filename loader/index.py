@@ -17,7 +17,7 @@ class Index:
     __LLAMA2_13B = "LLAMA2-13B"
     __LLAMA2_13B_URL = "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF/resolve/main/llama-2-13b-chat.Q5_K_M.gguf"
 
-    def __init__(self, documents, storage_dir, model_type=None):
+    def __init__(self, storage_dir, documents=None, model_type=None):
         # Set logger
         self.logger = logging.getLogger(self.__LOGGER_NAME)
         self.verbose = self.logger.level == logging.DEBUG
@@ -56,11 +56,15 @@ class Index:
         :return: The index from documents
         """
 
-        self.logger.info("Building index over the documents ...")
-        index = VectorStoreIndex.from_documents(self.documents, service_context=self.service_context, show_progress=self.verbose)
+        index = None
+        if self.documents is not None and self.storage_dir is not None:
+            self.logger.info("Building index over the documents ...")
+            index = VectorStoreIndex.from_documents(self.documents, service_context=self.service_context, show_progress=self.verbose)
 
-        self.logger.info(f"Persisting index to {self.storage_dir} storage ...")
-        index.storage_context.persist(persist_dir=self.storage_dir)
+            self.logger.info(f"Persisting index to {self.storage_dir} storage ...")
+            index.storage_context.persist(persist_dir=self.storage_dir)
+        else:
+            self.logger.info(f"Documents or index storage path not provided, skipping index creation")
 
         return index
 
@@ -70,6 +74,7 @@ class Index:
 
         :return: The index from storage context
         """
+
         index = None
         if self.__storage_exists():
             self.logger.info(f"Loading existing index from {self.storage_dir} storage ...")
