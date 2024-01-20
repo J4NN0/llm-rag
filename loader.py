@@ -30,10 +30,15 @@ class DataLoader:
 
         documents = []
         if self.data_dir is not None:
+            loaders = [
+                self.__load_simple,
+                self.__load_json,
+                self.__load_wiki
+            ]
+
             self.logger.info(f"Loading documents from {self.data_dir} directory ...")
-            documents = self.__load_simple()
-            documents.extend(self.__load_json())
-            documents.extend(self.__load_wiki())
+            for load in loaders:
+                documents.extend(load())
             self.logger.info(f"Loaded {len(documents)} documents")
         else:
             self.logger.info("No data directory specified, skipping loading documents")
