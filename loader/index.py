@@ -10,8 +10,8 @@ from llama_index.llms import LlamaCPP
 from llama_index.llms.llama_utils import messages_to_prompt, completion_to_prompt
 
 
-class LLM:
-    __LOGGER_NAME = "llm"
+class Index:
+    __LOGGER_NAME = "index"
 
     def __init__(self, documents, storage_dir, model_type=None, model_path=None):
         # Set logger
@@ -21,44 +21,59 @@ class LLM:
         self.documents = documents
         self.storage_dir = storage_dir
 
-        # LLM settings
-        self.llm_type = model_type
-        self.llm_path = model_path
+        # LLM model settings
+        self.service_context = self.__get_service_context(model_type)
+        self.model_path = model_path
 
-    def get_index(self):
+    def __get_service_context(self, model_type):
         """
-        Creates the index from the given documents if it doesn't exist, otherwise loads it from storage.
-        :return: The index from documents or from storage context
+        It returns the service context for the given model type.
+
+        :param model_type: The LLM model type
+        :return: The service context
         """
 
         llm = "default"
         embed_model = "default"
-        if self.__is_llm_type_local():
+        if model_type == "local":
             llm = self.__get_llama2_model()
             embed_model = "local"
 
-        service_context = ServiceContext.from_defaults(llm=llm, chunk_size=512, embed_model=embed_model)
+        return ServiceContext.from_defaults(llm=llm, chunk_size=512, embed_model=embed_model)
 
-        if not self.__storage_exists():
-            self.logger.info("Building index over the documents ...")
-            index = VectorStoreIndex.from_documents(self.documents, service_context=service_context, show_progress=True)
+    def persist(self):
+        """
+        Create the index from the given documents and persist it to the given storage directory.
 
-            self.logger.info(f"Persisting index to {self.storage_dir} storage ...")
-            index.storage_context.persist(persist_dir=self.storage_dir)
-        else:
-            self.logger.info(f"Creating existing index from {self.storage_dir} storage ...")
+        :return: The index from documents
+        """
+
+        self.logger.info("Building index over the documents ...")
+        index = VectorStoreIndex.from_documents(self.documents, service_context=self.service_context, show_progress=True)
+
+        self.logger.info(f"Persisting index to {self.storage_dir} storage ...")
+        index.storage_context.persist(persist_dir=self.storage_dir)
+
+        return index
+
+    def load(self):
+        """
+        Loads the index from the given storage directory.
+
+        :return: The index from storage context
+        """
+        index = None
+        if self.__storage_exists():
+            self.logger.info(f"Loading existing index from {self.storage_dir} storage ...")
             storage_context = StorageContext.from_defaults(persist_dir=self.storage_dir)
-
-            self.logger.info("Loading index from storage ...")
-            index = load_index_from_storage(storage_context, service_context=service_context)
+            index = load_index_from_storage(storage_context, service_context=self.service_context)
+        else:
+            self.logger.info(f"No storage found at {self.storage_dir} from which to load the index")
 
         return index
 
     def __storage_exists(self):
         return os.path.exists(self.storage_dir)
-
-    def __is_llm_type_local(self):
-        return self.llm_type == "local"
 
     @staticmethod
     def __get_llama2_model():

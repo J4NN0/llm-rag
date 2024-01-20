@@ -1,6 +1,6 @@
 from config import Config
-from loader import DataLoader
-from llm import LLM
+from loader.reader import DataReader
+from loader.index import Index
 
 
 def run_chat_engine(index):
@@ -24,16 +24,15 @@ def run_query_engine(index):
 def main():
     config = Config()
 
-    data_loader = DataLoader(data_dir=config.data_dir)
+    data_loader = DataReader(data_dir=config.data_dir)
     docs = data_loader.load()
 
-    llm = LLM(
+    index = Index(
         documents=docs,
         storage_dir=config.storage_dir,
         model_type=config.model_type,
         model_path=config.model_path
-    )
-    index = llm.get_index()
+    ).persist()
 
     if config.is_engine_chat():
         run_chat_engine(index)

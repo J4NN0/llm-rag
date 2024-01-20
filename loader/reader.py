@@ -7,8 +7,8 @@ from llama_index import (
 )
 
 
-class DataLoader:
-    __LOGGER_NAME = "data_loader"
+class DataReader:
+    __LOGGER_NAME = "data_reader"
 
     __SIMPLE_SUPPORTED_EXTENSIONS = [".csv", ".docx", ".epub", ".hwp", ".ipynb", ".jpeg", ".mbox", ".md", ".mp3", ".pdf", ".png", ".pptm", ".pptx"]
     __JSON_READER_LOADER = "JSONReader"
