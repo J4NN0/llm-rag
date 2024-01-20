@@ -13,9 +13,14 @@ from llama_index.llms.llama_utils import messages_to_prompt, completion_to_promp
 class Index:
     __LOGGER_NAME = "index"
 
-    def __init__(self, documents, storage_dir, model_type=None, model_path=None):
+    __LLM_DEFAULT = "DEFAULT"
+    __LLAMA2_13B = "LLAMA2-13B"
+    __LLAMA2_13B_URL = "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF/resolve/main/llama-2-13b-chat.Q5_K_M.gguf"
+
+    def __init__(self, documents, storage_dir, model_type=None):
         # Set logger
         self.logger = logging.getLogger(self.__LOGGER_NAME)
+        self.verbose = self.logger.level == logging.DEBUG
 
         # List of documents to index and its storage directory
         self.documents = documents
@@ -23,7 +28,6 @@ class Index:
 
         # LLM model settings
         self.service_context = self.__get_service_context(model_type)
-        self.model_path = model_path
 
     def __get_service_context(self, model_type):
         """
@@ -33,11 +37,15 @@ class Index:
         :return: The service context
         """
 
-        llm = "default"
-        embed_model = "default"
-        if model_type == "local":
-            llm = self.__get_llama2_model()
-            embed_model = "local"
+        match model_type:
+            case self.__LLM_DEFAULT:
+                llm = "default"
+                embed_model = "default"
+            case self.__LLAMA2_13B:
+                llm = self.__get_llama2_model(self.__LLAMA2_13B_URL, self.verbose)
+                embed_model = "local"
+            case _:
+                raise TypeError(f"LLM model type {model_type} not supported")
 
         return ServiceContext.from_defaults(llm=llm, chunk_size=512, embed_model=embed_model)
 
@@ -49,7 +57,7 @@ class Index:
         """
 
         self.logger.info("Building index over the documents ...")
-        index = VectorStoreIndex.from_documents(self.documents, service_context=self.service_context, show_progress=True)
+        index = VectorStoreIndex.from_documents(self.documents, service_context=self.service_context, show_progress=self.verbose)
 
         self.logger.info(f"Persisting index to {self.storage_dir} storage ...")
         index.storage_context.persist(persist_dir=self.storage_dir)
@@ -76,15 +84,13 @@ class Index:
         return os.path.exists(self.storage_dir)
 
     @staticmethod
-    def __get_llama2_model():
+    def __get_llama2_model(model_url, verbose=False):
         """
         :return: The Llama2 model
         """
 
         return LlamaCPP(
-            model_url="https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF/resolve/main/llama-2-13b-chat.Q5_K_M.gguf",
-            # optionally, you can set the path to a pre-downloaded model instead of model_url
-            model_path=None,
+            model_url=model_url,
             temperature=0.0,
             max_new_tokens=1024,
             # llama2 has a context window of 4096 tokens, but we set it lower to allow for some wiggle room
@@ -97,5 +103,5 @@ class Index:
             # transform inputs into Llama2 format
             messages_to_prompt=messages_to_prompt,
             completion_to_prompt=completion_to_prompt,
-            verbose=True
+            verbose=verbose
         )

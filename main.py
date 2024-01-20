@@ -30,8 +30,7 @@ def main():
     index = Index(
         documents=docs,
         storage_dir=config.storage_dir,
-        model_type=config.model_type,
-        model_path=config.model_path
+        model_type=config.model_type
     ).persist()
 
     if config.is_engine_chat():

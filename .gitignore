@@ -159,6 +159,5 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 
-# Local LLM(s) and Index files
-llm/
-storage/
+# Index storage
+vector_store/

@@ -7,10 +7,10 @@ import openai
 class Config:
     __OPENAI_API_KEY_ENV_VAR = "OPENAI_API_KEY"
 
-    __LOG_LEVEL_DEBUG = "debug"
+    __LOG_LEVEL_DEBUG = "DEBUG"
 
-    __INDEX_ENGINE_CHAT = "chat"
-    __INDEX_ENGINE_QUERY = "query"
+    __INDEX_ENGINE_CHAT = "CHAT"
+    __INDEX_ENGINE_QUERY = "QUERY"
 
     def __init__(self):
         # OpenAI API key
@@ -18,7 +18,7 @@ class Config:
         self.__set_openai_key()
 
         # Logging
-        self.log_level = os.environ.get('LOGGING_LEVEL').casefold()
+        self.log_level = os.environ.get('LOGGING_LEVEL').upper()
         self.__set_log_level()
 
         # Data
@@ -26,11 +26,10 @@ class Config:
 
         # Index
         self.storage_dir = os.environ.get('INDEX_STORAGE')
-        self.engine = os.environ.get('INDEX_ENGINE').casefold()
+        self.engine = os.environ.get('INDEX_ENGINE').upper()
 
         # LLM
-        self.model_type = os.environ.get('MODEL_TYPE').casefold()
-        self.model_path = os.environ.get('MODEL_PATH')
+        self.model_type = os.environ.get('MODEL_TYPE').upper()
 
     def __set_openai_key(self):
         openai.api_key = os.environ[self.__OPENAI_API_KEY_ENV_VAR]
