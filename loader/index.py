@@ -14,6 +14,8 @@ class Index:
     __LOGGER_NAME = "index"
 
     __LLM_DEFAULT = "DEFAULT"
+    __LLAMA2_7B = "LLAMA2-7B"
+    __LLAMA2_7B_URL = "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q8_0.gguf"
     __LLAMA2_13B = "LLAMA2-13B"
     __LLAMA2_13B_URL = "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF/resolve/main/llama-2-13b-chat.Q5_K_M.gguf"
 
@@ -41,6 +43,9 @@ class Index:
             case self.__LLM_DEFAULT:
                 llm = "default"
                 embed_model = "default"
+            case self.__LLAMA2_7B:
+                llm = self.__get_llama2_model(self.__LLAMA2_7B_URL, self.verbose)
+                embed_model = "local"
             case self.__LLAMA2_13B:
                 llm = self.__get_llama2_model(self.__LLAMA2_13B_URL, self.verbose)
                 embed_model = "local"
