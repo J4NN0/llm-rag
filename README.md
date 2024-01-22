@@ -93,7 +93,7 @@ Or just
 
     python3 main.py -L
 
-It will create a folder (named `vector_store` by default) containing the local vectorstore. Time of ingestion depends on the size of each single document.
+It will create a folder (named `vector_store` by default) containing the local vectorstore. The time of ingestion depends on the size of each single document.
 
 # Chat with your documents
 
@@ -105,7 +105,7 @@ Or just
 
     python3 main.py -Q
 
-Wait for the local vectorstore to be loaded and then you can start chatting with your documents.
+Wait for the local vectorstore to be loaded, and then you can start chatting with your documents.
 
 Type `exit` to finish chatting with the documents.
 
