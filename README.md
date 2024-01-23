@@ -51,6 +51,11 @@ Within the RAG there are five key stages:
        - `LLAMA2-7BQ5` - large, very low quality loss (7 billion parameters)
        - `LLAMA2-13BQ4` - medium, balanced quality (13 billion parameters)
        - `LLAMA2-13BQ5` - large, very low quality loss (13 billion parameters)
+       - `MIXTRAL-7BQ4` - medium, balanced quality (7 billion parameters)
+       - `MIXTRAL-7BQ5` - large, very low quality loss (7 billion parameters)
+       
+     Each downloaded model is cached in `~/Users/$USER/Library/Caches/llama_index` to avoid downloading it again.
+
    - If you want to use **OpenAI model**:
      - Set `MODEL_TYPE` to `DEFAULT`.
      - Set `OPENAI_API_KEY` to your OpenAI API key. If you don't have one, you can get one in [platform.openai](https://platform.openai.com/api-keys).
