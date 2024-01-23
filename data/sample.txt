@@ -1,9 +1,8 @@
-This is a test file in order to showcase the fine-tuning of the model
-My name is Federico
-I'm 28 years old
-I lived in Italy for about 20 years
-I'm a software engineer
-I'm currently located in Berlin
-I'm an ex-competitive swimmer
-My favorite game is God of War
-I'm a huge fan of the Mr Robot series
+Federico's nickname is J4NN0
+He is 28 years old
+He lived in Italy for about 20 years
+He is a software engineer
+He is currently located in Berlin
+He is an ex-competitive swimmer
+His favorite game is God of War
+He is a huge fan of the Mr Robot series

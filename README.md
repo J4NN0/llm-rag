@@ -44,13 +44,16 @@ Within the RAG there are five key stages:
        
        cp .sample.env .env
 
-5. Update the variables accordingly
-   - Decide if you want to use a local LLM or OpenAI API ChatGPT model
-     - If you want to use a **local LLM**:
-       - Set `MODEL_TYPE` to the LLM you want to use between the supported ones: `LLAMA2-7B` or `LLAMA2-13B`.
-     - If you want to use OpenAI API **ChatGPT model**:
-        - Set `MODEL_TYPE` to `DEFAULT`.
-        - Set `OPENAI_API_KEY` to your OpenAI API key. If you don't have one, you can get one in [platform.openai](https://platform.openai.com/api-keys).
+5. Decide if you want to use a local LLM or OpenAI model
+   - If you want to use a **local LLM**:
+     - Set `MODEL_TYPE` to the LLM you want to use between the supported ones:
+       - `LLAMA2-7BQ4` - medium, balanced quality (7 billion parameter)
+       - `LLAMA2-7BQ5` - large, very low quality loss (7 billion parameter)
+       - `LLAMA2-13BQ4` - medium, balanced quality (13 billion parameter)
+       - `LLAMA2-13BQ5` - large, very low quality loss (13 billion parameter)
+   - If you want to use OpenAI API **ChatGPT model**:
+     - Set `MODEL_TYPE` to `DEFAULT`.
+     - Set `OPENAI_API_KEY` to your OpenAI API key. If you don't have one, you can get one in [platform.openai](https://platform.openai.com/api-keys).
 
 6. Optionally, you can update the following variables
    - `LOGGING_LEVEL` to set level output verbosity:

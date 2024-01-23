@@ -14,10 +14,14 @@ class Index:
     __LOGGER_NAME = "index"
 
     __LLM_DEFAULT = "DEFAULT"
-    __LLAMA2_7B = "LLAMA2-7B"
-    __LLAMA2_7B_URL = "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q8_0.gguf"
-    __LLAMA2_13B = "LLAMA2-13B"
-    __LLAMA2_13B_URL = "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF/resolve/main/llama-2-13b-chat.Q5_K_M.gguf"
+    __LLAMA2_7BQ4 = "LLAMA2-7BQ4"
+    __LLAMA2_7BQ4_URL = "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q4_K_M.gguf"
+    __LLAMA2_7BQ5 = "LLAMA2-7BQ5"
+    __LLAMA2_7BQ5_URL = "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q5_K_M.gguf"
+    __LLAMA2_13BQ4 = "LLAMA2-13BQ4"
+    __LLAMA2_13BQ4_URL = "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF/resolve/main/llama-2-13b-chat.Q4_K_M.gguf"
+    __LLAMA2_13BQ5 = "LLAMA2-13BQ5"
+    __LLAMA2_13BQ5_URL = "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF/resolve/main/llama-2-13b-chat.Q5_K_M.gguf"
 
     def __init__(self, storage_dir, documents=None, model_type=None):
         # Set logger
@@ -43,11 +47,17 @@ class Index:
             case self.__LLM_DEFAULT:
                 llm = "default"
                 embed_model = "default"
-            case self.__LLAMA2_7B:
-                llm = self.__get_llama2_model(self.__LLAMA2_7B_URL, self.verbose)
+            case self.__LLAMA2_7BQ4:
+                llm = self.__get_llama2_model(self.__LLAMA2_7BQ4_URL, self.verbose)
                 embed_model = "local"
-            case self.__LLAMA2_13B:
-                llm = self.__get_llama2_model(self.__LLAMA2_13B_URL, self.verbose)
+            case self.__LLAMA2_7BQ5:
+                llm = self.__get_llama2_model(self.__LLAMA2_7BQ5_URL, self.verbose)
+                embed_model = "local"
+            case self.__LLAMA2_13BQ4:
+                llm = self.__get_llama2_model(self.__LLAMA2_13BQ4_URL, self.verbose)
+                embed_model = "local"
+            case self.__LLAMA2_13BQ5:
+                llm = self.__get_llama2_model(self.__LLAMA2_13BQ5_URL, self.verbose)
                 embed_model = "local"
             case _:
                 raise TypeError(f"LLM model type {model_type} not supported")
@@ -101,15 +111,12 @@ class Index:
 
         return LlamaCPP(
             model_url=model_url,
-            temperature=0.0,
-            max_new_tokens=1024,
+            # temperature=0.0,
+            # max_new_tokens=1024,
             # llama2 has a context window of 4096 tokens, but we set it lower to allow for some wiggle room
-            context_window=3900,  # note, this sets n_ctx in the model_kwargs below, so you don't need to pass it there.
-            # kwargs to pass to __call__()
-            generate_kwargs={},
-            # kwargs to pass to __init__()
+            context_window=2048,  # note, this sets n_ctx in the model_kwargs below, so you don't need to pass it there.
             # set to at least 1 to use GPU
-            model_kwargs={"n_gpu_layers": 4},
+            # model_kwargs={"n_gpu_layers": 1},
             # transform inputs into Llama2 format
             messages_to_prompt=messages_to_prompt,
             completion_to_prompt=completion_to_prompt,
