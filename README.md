@@ -47,11 +47,11 @@ Within the RAG there are five key stages:
 5. Decide if you want to use a local LLM or OpenAI model
    - If you want to use a **local LLM**:
      - Set `MODEL_TYPE` to the LLM you want to use between the supported ones:
-       - `LLAMA2-7BQ4` - medium, balanced quality (7 billion parameter)
-       - `LLAMA2-7BQ5` - large, very low quality loss (7 billion parameter)
-       - `LLAMA2-13BQ4` - medium, balanced quality (13 billion parameter)
-       - `LLAMA2-13BQ5` - large, very low quality loss (13 billion parameter)
-   - If you want to use OpenAI API **ChatGPT model**:
+       - `LLAMA2-7BQ4` - medium, balanced quality (7 billion parameters)
+       - `LLAMA2-7BQ5` - large, very low quality loss (7 billion parameters)
+       - `LLAMA2-13BQ4` - medium, balanced quality (13 billion parameters)
+       - `LLAMA2-13BQ5` - large, very low quality loss (13 billion parameters)
+   - If you want to use **OpenAI model**:
      - Set `MODEL_TYPE` to `DEFAULT`.
      - Set `OPENAI_API_KEY` to your OpenAI API key. If you don't have one, you can get one in [platform.openai](https://platform.openai.com/api-keys).
 
@@ -108,7 +108,18 @@ Or just
 
     python3 main.py -Q
 
-Wait for the local vectorstore to be loaded, and then you can start chatting with your documents.
+Wait for the local vectorstore to be loaded, and then you can start chatting with your documents. Write your query and hit enter. The model consumes the prompt and prepares the answer (waiting time depends on your machine in case of local LLM, or OpenAI system load)
+
+For instance, asking about myself based on the custom documents fed before:
+
+```
+Q: Why is Federico's nickname J4NN0?
+```
+
+The model's answer should be:
+
+> Federico's nickname "J4NN0" was given to him by a friend during one of his League of Legends games. The friend started calling him "J4NN0" because he was playing so well that it sounded like "Janna," which is a character in the game. Federico found the nickname funny and decided to keep it as his nickname.
+
 
 Type `exit` to finish chatting with the documents.
 
