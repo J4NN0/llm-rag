@@ -1,6 +1,6 @@
 llama-index==0.9.36
 openai
-setuptools
+setuptools==69.0.3
 llama-cpp-python
 # LLamaCPP
 transformers
