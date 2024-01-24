@@ -8,6 +8,7 @@ This repository provides documentation and resources for understanding the basic
 - [Environment Setup](#environment-setup)
 - [Ingest your data](#ingest-your-data)
 - [Chat with your documents](#chat-with-your-documents)
+- [Local vs Cloud-based LLM](#local-vs-cloud-based-llm)
 - [Resources](#resources)
 
 # Retrieval Augmented Generation (RAG)
@@ -48,11 +49,11 @@ Within the RAG there are five key stages:
    - If you want to use a **local LLM**:
      - Set `MODEL_TYPE` to the LLM you want to use between the supported ones:
        - `LLAMA2-7BQ4` - medium, balanced quality (7 billion parameters)
-       - `LLAMA2-7BQ5` - large, very low quality loss (7 billion parameters)
+       - `LLAMA2-7BQ5` - large, very low-quality loss (7 billion parameters)
        - `LLAMA2-13BQ4` - medium, balanced quality (13 billion parameters)
-       - `LLAMA2-13BQ5` - large, very low quality loss (13 billion parameters)
+       - `LLAMA2-13BQ5` - large, very low-quality loss (13 billion parameters)
        - `MIXTRAL-7BQ4` - medium, balanced quality (7 billion parameters)
-       - `MIXTRAL-7BQ5` - large, very low quality loss (7 billion parameters)
+       - `MIXTRAL-7BQ5` - large, very low-quality loss (7 billion parameters)
        
      Each downloaded model is cached in `~/Users/$USER/Library/Caches/llama_index` to avoid downloading it again.
 
@@ -115,7 +116,7 @@ Or just
 
 Wait for the local vectorstore to be loaded, and then you can start chatting with your documents. Write your query and hit enter. The model consumes the prompt and prepares the answer (waiting time depends on your machine in case of local LLM, or OpenAI system load)
 
-For instance, asking about myself based on the custom documents fed before:
+For instance, asking about myself based on the customs documents fed before:
 
 ```
 Q: Why is Federico's nickname J4NN0?
@@ -127,6 +128,14 @@ The model's answer should be:
 
 
 Type `exit` to finish chatting with the documents.
+
+# Local vs Cloud-based LLM
+
+When we talk about running an LLM locally versus using a cloud-based service (like ChatGPT), the key differences often revolve around where the model is hosted and where the computation happens. Privacy concerns are an important aspect of this discussion.
+
+Running an LLM locally means that the model is deployed on your own device (e.g., your computer or a server you control). The data and computations associated with the model are confined to your local environment, providing a higher level of privacy as your data doesn't leave your device. This offers a higher level of privacy as the data and computations remain within your control
+
+Cloud-based LLM typically involves interacting with a model hosted on a (cloud) server. When a request is sent, the input is processed by the model on the server side. This means your input data is temporarily stored and processed on external servers, raising privacy concerns as the service provider has access to the data you input (at least temporarily).
 
 # Resources
 
