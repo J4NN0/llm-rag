@@ -146,26 +146,25 @@ As a rule of thumb, it is recommended to use `Q5_K_M` as it preserves most of th
 
 Difference in different quantization methods:
 ```
-Allowed quantization types:
-   2  or  Q4_0   :  3.50G, +0.2499 ppl @ 7B - small, very high quality loss - legacy, prefer using Q3_K_M
-   3  or  Q4_1   :  3.90G, +0.1846 ppl @ 7B - small, substantial quality loss - legacy, prefer using Q3_K_L
-   8  or  Q5_0   :  4.30G, +0.0796 ppl @ 7B - medium, balanced quality - legacy, prefer using Q4_K_M
-   9  or  Q5_1   :  4.70G, +0.0415 ppl @ 7B - medium, low quality loss - legacy, prefer using Q5_K_M
-  10  or  Q2_K   :  2.67G, +0.8698 ppl @ 7B - smallest, extreme quality loss - not recommended
-  12  or  Q3_K   : alias for Q3_K_M
-  11  or  Q3_K_S :  2.75G, +0.5505 ppl @ 7B - very small, very high quality loss
-  12  or  Q3_K_M :  3.06G, +0.2437 ppl @ 7B - very small, very high quality loss
-  13  or  Q3_K_L :  3.35G, +0.1803 ppl @ 7B - small, substantial quality loss
-  15  or  Q4_K   : alias for Q4_K_M
-  14  or  Q4_K_S :  3.56G, +0.1149 ppl @ 7B - small, significant quality loss
-  15  or  Q4_K_M :  3.80G, +0.0535 ppl @ 7B - medium, balanced quality - *recommended*
-  17  or  Q5_K   : alias for Q5_K_M
-  16  or  Q5_K_S :  4.33G, +0.0353 ppl @ 7B - large, low quality loss - *recommended*
-  17  or  Q5_K_M :  4.45G, +0.0142 ppl @ 7B - large, very low quality loss - *recommended*
-  18  or  Q6_K   :  5.15G, +0.0044 ppl @ 7B - very large, extremely low quality loss
-   7  or  Q8_0   :  6.70G, +0.0004 ppl @ 7B - very large, extremely low quality loss - not recommended
-   1  or  F16    : 13.00G              @ 7B - extremely large, virtually no quality loss - not recommended
-   0  or  F32    : 26.00G              @ 7B - absolutely huge, lossless - not recommended
+ 2  or  Q4_0   :  3.50G, +0.2499 ppl @ 7B - small, very high quality loss - legacy, prefer using Q3_K_M
+ 3  or  Q4_1   :  3.90G, +0.1846 ppl @ 7B - small, substantial quality loss - legacy, prefer using Q3_K_L
+ 8  or  Q5_0   :  4.30G, +0.0796 ppl @ 7B - medium, balanced quality - legacy, prefer using Q4_K_M
+ 9  or  Q5_1   :  4.70G, +0.0415 ppl @ 7B - medium, low quality loss - legacy, prefer using Q5_K_M
+10  or  Q2_K   :  2.67G, +0.8698 ppl @ 7B - smallest, extreme quality loss - not recommended
+12  or  Q3_K   : alias for Q3_K_M
+11  or  Q3_K_S :  2.75G, +0.5505 ppl @ 7B - very small, very high quality loss
+12  or  Q3_K_M :  3.06G, +0.2437 ppl @ 7B - very small, very high quality loss
+13  or  Q3_K_L :  3.35G, +0.1803 ppl @ 7B - small, substantial quality loss
+15  or  Q4_K   : alias for Q4_K_M
+14  or  Q4_K_S :  3.56G, +0.1149 ppl @ 7B - small, significant quality loss
+15  or  Q4_K_M :  3.80G, +0.0535 ppl @ 7B - medium, balanced quality - *recommended*
+17  or  Q5_K   : alias for Q5_K_M
+16  or  Q5_K_S :  4.33G, +0.0353 ppl @ 7B - large, low quality loss - *recommended*
+17  or  Q5_K_M :  4.45G, +0.0142 ppl @ 7B - large, very low quality loss - *recommended*
+18  or  Q6_K   :  5.15G, +0.0044 ppl @ 7B - very large, extremely low quality loss
+ 7  or  Q8_0   :  6.70G, +0.0004 ppl @ 7B - very large, extremely low quality loss - not recommended
+ 1  or  F16    : 13.00G              @ 7B - extremely large, virtually no quality loss - not recommended
+ 0  or  F32    : 26.00G              @ 7B - absolutely huge, lossless - not recommended
 ```
 
 # Resources
@@ -173,3 +172,4 @@ Allowed quantization types:
 - [LlamaIndex Documentation](https://docs.llamaindex.ai/en/stable/index.html#)
 - [Large language models, explained with a minimum of math and jargon](https://seantrott.substack.com/p/large-language-models-explained)
 - [Building LLM applications for production](https://huyenchip.com/2023/04/11/llm-engineering.html)
+- [TheBloke - Hugging Face](https://huggingface.co/TheBloke)
