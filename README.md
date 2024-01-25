@@ -46,7 +46,7 @@ Within the RAG there are five key stages:
        
        cp .sample.env .env
 
-5. Decide if you want to use a local LLM or OpenAI model (in case you don't know what to choose, refer to below section [Local LLM vs Cloud-based LLM](#local-llm-vs-cloud-based-llm) and [Quantization methods](#quantization-methods)
+5. Decide if you want to use a local LLM or OpenAI model (in case you don't know what to choose, refer to below section [Local LLM vs Cloud-based LLM](#local-llm-vs-cloud-based-llm) and [Quantization methods](#quantization-methods))
    - If you want to use a **local LLM**:
      - Set `MODEL_TYPE` to the LLM you want to use between the supported ones:
        - `LLAMA2-7B_Q4` - medium, balanced quality (7 billion parameters)
