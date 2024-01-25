@@ -9,6 +9,7 @@ This repository provides documentation and resources for understanding the basic
 - [Ingest your data](#ingest-your-data)
 - [Chat with your documents](#chat-with-your-documents)
 - [Local LLM vs Cloud-based LLM](#local-llm-vs-cloud-based-llm)
+- [Quantization methods](#quantization-methods)
 - [Resources](#resources)
 
 # Retrieval Augmented Generation (RAG)
@@ -45,15 +46,15 @@ Within the RAG there are five key stages:
        
        cp .sample.env .env
 
-5. Decide if you want to use a local LLM or OpenAI model
+5. Decide if you want to use a local LLM or OpenAI model (in case you don't know what to choose, refer to below section [Local LLM vs Cloud-based LLM](#local-llm-vs-cloud-based-llm) and [Quantization methods](#quantization-methods)
    - If you want to use a **local LLM**:
      - Set `MODEL_TYPE` to the LLM you want to use between the supported ones:
-       - `LLAMA2-7BQ4` - medium, balanced quality (7 billion parameters)
-       - `LLAMA2-7BQ5` - large, very low-quality loss (7 billion parameters)
-       - `LLAMA2-13BQ4` - medium, balanced quality (13 billion parameters)
-       - `LLAMA2-13BQ5` - large, very low-quality loss (13 billion parameters)
-       - `MIXTRAL-7BQ4` - medium, balanced quality (7 billion parameters)
-       - `MIXTRAL-7BQ5` - large, very low-quality loss (7 billion parameters)
+       - `LLAMA2-7B_Q4` - medium, balanced quality (7 billion parameters)
+       - `LLAMA2-7B_Q5` - large, very low-quality loss (7 billion parameters)
+       - `LLAMA2-13B_Q4` - medium, balanced quality (13 billion parameters)
+       - `LLAMA2-13B_Q5` - large, very low-quality loss (13 billion parameters)
+       - `MIXTRAL-7B_Q4` - medium, balanced quality (7 billion parameters)
+       - `MIXTRAL-7B_Q5` - large, very low-quality loss (7 billion parameters)
        
      Each downloaded model is cached in `~/Users/$USER/Library/Caches/llama_index` to avoid downloading it again.
 
@@ -136,6 +137,36 @@ When it comes to running an LLM locally versus using a cloud-based service (such
 Running an LLM locally means that the model is deployed on your own device (e.g., your computer or a server you control). The data and computations associated with the model are confined to your local environment, providing a higher level of privacy as your data doesn't leave your device.
 
 Cloud-based LLM typically involves interacting with a model hosted on a (cloud) server. When a request is sent, the input is processed by the model on the server side. This means your input data is temporarily stored and processed on external servers, raising privacy concerns as the service provider has access to the data you input, at least temporarily.
+
+# Quantization methods
+
+The names of the quantization methods follow the naming convention: "q" + the number of bits + the variant used (in the *attention* and *feedforward* layers). The following `S`, `M` and `L` refer to "Small", "Medium" and "Large" respectively. In models above, the variant used is omitted, as it is always the same i.e., `K_M`. The [lower the quantization](https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1579252501), the lower the memory consumption but also the higher the perplexity loss (a metric indicating a model's proficiency in predicting the subsequent word based on the context provide).
+
+As a rule of thumb, it is recommended to use `Q5_K_M` as it preserves most of the model's performance. Alternatively, you can use `Q4_K_M` to save some memory.
+
+Difference in different quantization methods:
+```
+Allowed quantization types:
+   2  or  Q4_0   :  3.50G, +0.2499 ppl @ 7B - small, very high quality loss - legacy, prefer using Q3_K_M
+   3  or  Q4_1   :  3.90G, +0.1846 ppl @ 7B - small, substantial quality loss - legacy, prefer using Q3_K_L
+   8  or  Q5_0   :  4.30G, +0.0796 ppl @ 7B - medium, balanced quality - legacy, prefer using Q4_K_M
+   9  or  Q5_1   :  4.70G, +0.0415 ppl @ 7B - medium, low quality loss - legacy, prefer using Q5_K_M
+  10  or  Q2_K   :  2.67G, +0.8698 ppl @ 7B - smallest, extreme quality loss - not recommended
+  12  or  Q3_K   : alias for Q3_K_M
+  11  or  Q3_K_S :  2.75G, +0.5505 ppl @ 7B - very small, very high quality loss
+  12  or  Q3_K_M :  3.06G, +0.2437 ppl @ 7B - very small, very high quality loss
+  13  or  Q3_K_L :  3.35G, +0.1803 ppl @ 7B - small, substantial quality loss
+  15  or  Q4_K   : alias for Q4_K_M
+  14  or  Q4_K_S :  3.56G, +0.1149 ppl @ 7B - small, significant quality loss
+  15  or  Q4_K_M :  3.80G, +0.0535 ppl @ 7B - medium, balanced quality - *recommended*
+  17  or  Q5_K   : alias for Q5_K_M
+  16  or  Q5_K_S :  4.33G, +0.0353 ppl @ 7B - large, low quality loss - *recommended*
+  17  or  Q5_K_M :  4.45G, +0.0142 ppl @ 7B - large, very low quality loss - *recommended*
+  18  or  Q6_K   :  5.15G, +0.0044 ppl @ 7B - very large, extremely low quality loss
+   7  or  Q8_0   :  6.70G, +0.0004 ppl @ 7B - very large, extremely low quality loss - not recommended
+   1  or  F16    : 13.00G              @ 7B - extremely large, virtually no quality loss - not recommended
+   0  or  F32    : 26.00G              @ 7B - absolutely huge, lossless - not recommended
+```
 
 # Resources
 

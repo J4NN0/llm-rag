@@ -14,19 +14,19 @@ class Index:
     __LOGGER_NAME = "index"
 
     __LLM_DEFAULT = "DEFAULT"
-    __LLAMA2_7BQ4 = "LLAMA2-7BQ4"
-    __LLAMA2_7BQ4_URL = "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q4_K_M.gguf"
-    __LLAMA2_7BQ5 = "LLAMA2-7BQ5"
-    __LLAMA2_7BQ5_URL = "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q5_K_M.gguf"
-    __LLAMA2_13BQ4 = "LLAMA2-13BQ4"
-    __LLAMA2_13BQ4_URL = "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF/resolve/main/llama-2-13b-chat.Q4_K_M.gguf"
-    __LLAMA2_13BQ5 = "LLAMA2-13BQ5"
-    __LLAMA2_13BQ5_URL = "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF/resolve/main/llama-2-13b-chat.Q5_K_M.gguf"
+    __LLAMA2_7B_Q4 = "LLAMA2-7B_Q4"
+    __LLAMA2_7B_Q4_URL = "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q4_K_M.gguf"
+    __LLAMA2_7B_Q5 = "LLAMA2-7B_Q5"
+    __LLAMA2_7B_Q5_URL = "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q5_K_M.gguf"
+    __LLAMA2_13B_Q4 = "LLAMA2-13B_Q4"
+    __LLAMA2_13B_Q4_URL = "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF/resolve/main/llama-2-13b-chat.Q4_K_M.gguf"
+    __LLAMA2_13B_Q5 = "LLAMA2-13B_Q5"
+    __LLAMA2_13B_Q5_URL = "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF/resolve/main/llama-2-13b-chat.Q5_K_M.gguf"
 
-    __MIXTRAL_7BQ4 = "MIXTRAL-7BQ4"
-    __MIXTRAL_7BQ4_URL = "https://huggingface.co/TheBloke/Mixtral-8x7B-Instruct-v0.1-GGUF/resolve/main/mixtral-8x7b-instruct-v0.1.Q4_K_M.gguf"
-    __MIXTRAL_7BQ5 = "MIXTRAL-7BQ5"
-    __MIXTRAL_7BQ5_URL = "https://huggingface.co/TheBloke/Mixtral-8x7B-Instruct-v0.1-GGUF/resolve/main/mixtral-8x7b-instruct-v0.1.Q5_K_M.gguf"
+    __MIXTRAL_7B_Q4 = "MIXTRAL-7B_Q4"
+    __MIXTRAL_7B_Q4_URL = "https://huggingface.co/TheBloke/Mixtral-8x7B-Instruct-v0.1-GGUF/resolve/main/mixtral-8x7b-instruct-v0.1.Q4_K_M.gguf"
+    __MIXTRAL_7B_Q5 = "MIXTRAL-7B_Q5"
+    __MIXTRAL_7B_Q5_URL = "https://huggingface.co/TheBloke/Mixtral-8x7B-Instruct-v0.1-GGUF/resolve/main/mixtral-8x7b-instruct-v0.1.Q5_K_M.gguf"
 
     def __init__(self, storage_dir, documents=None, model_type=None):
         # Set logger
@@ -52,23 +52,23 @@ class Index:
             case self.__LLM_DEFAULT:
                 llm = "default"
                 embed_model = "default"
-            case self.__LLAMA2_7BQ4:
-                llm = self.__get_llm_model(self.__LLAMA2_7BQ4_URL, self.verbose)
+            case self.__LLAMA2_7B_Q4:
+                llm = self.__get_llm_model(self.__LLAMA2_7B_Q4_URL, self.verbose)
                 embed_model = "local"
-            case self.__LLAMA2_7BQ5:
-                llm = self.__get_llm_model(self.__LLAMA2_7BQ5_URL, self.verbose)
+            case self.__LLAMA2_7B_Q5:
+                llm = self.__get_llm_model(self.__LLAMA2_7B_Q5_URL, self.verbose)
                 embed_model = "local"
-            case self.__LLAMA2_13BQ4:
-                llm = self.__get_llm_model(self.__LLAMA2_13BQ4_URL, self.verbose)
+            case self.__LLAMA2_13B_Q4:
+                llm = self.__get_llm_model(self.__LLAMA2_13B_Q4_URL, self.verbose)
                 embed_model = "local"
-            case self.__LLAMA2_13BQ5:
-                llm = self.__get_llm_model(self.__LLAMA2_13BQ5_URL, self.verbose)
+            case self.__LLAMA2_13B_Q5:
+                llm = self.__get_llm_model(self.__LLAMA2_13B_Q5_URL, self.verbose)
                 embed_model = "local"
-            case self.__MIXTRAL_7BQ4:
-                llm = self.__get_llm_model(self.__MIXTRAL_7BQ4_URL, self.verbose)
+            case self.__MIXTRAL_7B_Q4:
+                llm = self.__get_llm_model(self.__MIXTRAL_7B_Q4_URL, self.verbose)
                 embed_model = "local"
-            case self.__MIXTRAL_7BQ5:
-                llm = self.__get_llm_model(self.__MIXTRAL_7BQ5_URL, self.verbose)
+            case self.__MIXTRAL_7B_Q5:
+                llm = self.__get_llm_model(self.__MIXTRAL_7B_Q5_URL, self.verbose)
                 embed_model = "local"
             case _:
                 raise TypeError(f"LLM model type {model_type} not supported")
