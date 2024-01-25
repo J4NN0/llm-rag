@@ -46,7 +46,7 @@ Within the RAG there are five key stages:
        
        cp .sample.env .env
 
-5. Decide if you want to use a local LLM or OpenAI model (in case you don't know what to choose, refer to below section [Local LLM vs Cloud-based LLM](#local-llm-vs-cloud-based-llm) and [Quantization methods](#quantization-methods))
+5. Decide if you want to use a local LLM or OpenAI model (in case you don't know what to choose, refer to the below section [Local LLM vs Cloud-based LLM](#local-llm-vs-cloud-based-llm) and [Quantization methods](#quantization-methods))
    - If you want to use a **local LLM**:
      - Set `MODEL_TYPE` to the LLM you want to use between the supported ones:
        - `LLAMA2-7B_Q4` - medium, balanced quality (7 billion parameters)
@@ -137,7 +137,7 @@ Cloud-based LLM typically involves interacting with a model hosted on a (cloud) 
 
 # Quantization methods
 
-The names of the quantization methods follow the naming convention: "q" + the number of bits + the variant used (in the *attention* and *feedforward* layers). The following `S`, `M` and `L` refer to "Small", "Medium" and "Large" respectively. In models above, the variant used is omitted, as it is always the same i.e., `K_M`. The [lower the quantization](https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1579252501), the lower the memory consumption but also the higher the perplexity loss (a metric indicating a model's proficiency in predicting the subsequent word based on the context provide).
+The names of the quantization methods follow the naming convention: "q" + the number of bits + the variant used (in the *attention* and *feedforward* layers). The following `S`, `M` and `L` refer to "Small", "Medium" and "Large" respectively. In the models above, the variant used is omitted as it is always the same i.e., `K_M`. The [lower the quantization](https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1579252501), the lower the memory consumption but also the higher the perplexity loss (a metric indicating a model's proficiency in predicting the subsequent word based on the context provide).
 
 As a rule of thumb, it is recommended to use `Q5_K_M` as it preserves most of the model's performance. Alternatively, you can use `Q4_K_M` to save some memory.
 
