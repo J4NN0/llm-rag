@@ -8,7 +8,7 @@ This repository provides documentation and resources for understanding the basic
 - [Environment Setup](#environment-setup)
 - [Ingest your data](#ingest-your-data)
 - [Chat with your documents](#chat-with-your-documents)
-- [Local vs Cloud-based LLM](#local-vs-cloud-based-llm)
+- [Local LLM vs Cloud-based LLM](#local-llm-vs-cloud-based-llm)
 - [Resources](#resources)
 
 # Retrieval Augmented Generation (RAG)
@@ -129,13 +129,13 @@ The model's answer should be:
 
 Type `exit` to finish chatting with the documents.
 
-# Local vs Cloud-based LLM
+# Local LLM vs Cloud-based LLM
 
-When we talk about running an LLM locally versus using a cloud-based service (like ChatGPT), the key differences often revolve around where the model is hosted and where the computation happens. Privacy concerns are an important aspect of this discussion.
+When it comes to running an LLM locally versus using a cloud-based service (such as [ChatGPT](https://chat.openai.com/)), the main differences often concern where the model is hosted and where the calculation takes place. But privacy issues are also an important aspect of this discussion.
 
-Running an LLM locally means that the model is deployed on your own device (e.g., your computer or a server you control). The data and computations associated with the model are confined to your local environment, providing a higher level of privacy as your data doesn't leave your device. This offers a higher level of privacy as the data and computations remain within your control
+Running an LLM locally means that the model is deployed on your own device (e.g., your computer or a server you control). The data and computations associated with the model are confined to your local environment, providing a higher level of privacy as your data doesn't leave your device.
 
-Cloud-based LLM typically involves interacting with a model hosted on a (cloud) server. When a request is sent, the input is processed by the model on the server side. This means your input data is temporarily stored and processed on external servers, raising privacy concerns as the service provider has access to the data you input (at least temporarily).
+Cloud-based LLM typically involves interacting with a model hosted on a (cloud) server. When a request is sent, the input is processed by the model on the server side. This means your input data is temporarily stored and processed on external servers, raising privacy concerns as the service provider has access to the data you input, at least temporarily.
 
 # Resources
 
