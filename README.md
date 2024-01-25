@@ -67,9 +67,6 @@ Within the RAG there are five key stages:
      - Set to `DEBUG` for verbose 
      - Set to `INFO` for less.
    - `INDEX_STORAGE` to set the path where to store the index. By default, it is set to `./vector_store`.
-   - `INDEX_ENGINE` to define the index engine you want to use: 
-     - Set to `CHAT` for chat engine
-     - Set to `QUERY` for Q&A engine.
    - `DATA_DIR` to set the path where your custom documents are stored. By default, it is set to `./data`.
 
 # Ingest your data

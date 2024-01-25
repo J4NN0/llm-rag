@@ -9,9 +9,6 @@ class Config:
 
     __LOG_LEVEL_DEBUG = "DEBUG"
 
-    __INDEX_ENGINE_CHAT = "CHAT"
-    __INDEX_ENGINE_QUERY = "QUERY"
-
     def __init__(self):
         # OpenAI API key
         self.openai_key = os.environ.get('OPENAI_API_KEY')
@@ -21,12 +18,9 @@ class Config:
         self.log_level = os.environ.get('LOGGING_LEVEL').upper()
         self.__set_log_level()
 
-        # Data
+        # Data and Index storage directories
         self.data_dir = os.environ.get('DATA_DIR')
-
-        # Index
         self.storage_dir = os.environ.get('INDEX_STORAGE')
-        self.engine = os.environ.get('INDEX_ENGINE').upper()
 
         # LLM
         self.model_type = os.environ.get('MODEL_TYPE').upper()
@@ -40,9 +34,3 @@ class Config:
             level = logging.DEBUG
 
         logging.basicConfig(stream=sys.stdout, level=level)
-
-    def is_engine_chat(self):
-        return self.engine == self.__INDEX_ENGINE_CHAT
-
-    def is_engine_query(self):
-        return self.engine == self.__INDEX_ENGINE_QUERY
