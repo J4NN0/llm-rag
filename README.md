@@ -124,6 +124,7 @@ The model's answer should be:
 
 > Federico's nickname "J4NN0" was given to him by a friend during one of his League of Legends games. The friend started calling him "J4NN0" because he was playing so well that it sounded like "Janna," which is a character in the game. Federico found the nickname funny and decided to keep it as his nickname.
 
+Such information - which is actually not true at all (it was proposed by GitHub Copilot and I accepted it) - is contained in [data/j4nn0.md](https://github.com/J4NN0/llm-rag/blob/main/data/j4nn0.md).
 
 Type `exit` to finish chatting with the documents.
 
