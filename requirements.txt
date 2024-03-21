@@ -1,7 +1,7 @@
 llama-index==0.9.36
 openai
 setuptools==69.0.3
-llama-cpp-python
+llama-cpp-python==0.2.26
 # LLamaCPP
 transformers
 torch
