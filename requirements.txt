@@ -1,7 +1,7 @@
 llama-index==0.10.55
 openai
-setuptools==69.0.3
-# llama-cpp-python==0.2.26
+setuptools==70.0.0
+llama-cpp-python==0.2.26
 # Ollama
 llama-index-llms-ollama
 # LLamaCPP
