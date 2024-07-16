@@ -1,10 +1,7 @@
 import logging
 import glob
 from pathlib import Path
-from llama_index import (
-    SimpleDirectoryReader,
-    download_loader
-)
+from llama_index.core import SimpleDirectoryReader, download_loader
 
 
 class DataReader:
@@ -78,7 +75,7 @@ class DataReader:
         self.logger.debug(f"Loading JSON documents ...")
         documents = []
         for json_file in json_files:
-            documents.extend(loader.load_data(Path(json_file), is_jsonl=False))
+            documents.extend(loader.load_data(Path(json_file)))
         self.logger.debug(f"Loaded {len(documents)} JSON documents")
 
         return documents

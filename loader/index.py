@@ -1,13 +1,13 @@
 import logging
 import os.path
-from llama_index import (
-    ServiceContext,
-    VectorStoreIndex,
-    StorageContext,
-    load_index_from_storage
+from llama_index.core import VectorStoreIndex, StorageContext, load_index_from_storage
+from llama_index.core import Settings
+from llama_index.llms.llama_cpp import LlamaCPP
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from llama_index.llms.llama_cpp.llama_utils import (
+    messages_to_prompt,
+    completion_to_prompt,
 )
-from llama_index.llms import LlamaCPP
-from llama_index.llms.llama_utils import messages_to_prompt, completion_to_prompt
 
 
 class Index:
@@ -38,9 +38,9 @@ class Index:
         self.storage_dir = storage_dir
 
         # LLM model settings
-        self.service_context = self.__get_service_context(model_type)
+        self.__set_service_context(model_type)
 
-    def __get_service_context(self, model_type):
+    def __set_service_context(self, model_type):
         """
         It returns the service context for the given model type.
 
@@ -73,7 +73,9 @@ class Index:
             case _:
                 raise TypeError(f"LLM model type {model_type} not supported")
 
-        return ServiceContext.from_defaults(llm=llm, chunk_size=512, embed_model=embed_model)
+        Settings.llm = llm
+        Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
+        Settings.chunk_size = 512
 
     def persist(self):
         """
@@ -85,7 +87,7 @@ class Index:
         index = None
         if self.documents is not None and self.storage_dir is not None:
             self.logger.info("Building index over the documents ...")
-            index = VectorStoreIndex.from_documents(self.documents, service_context=self.service_context, show_progress=self.verbose)
+            index = VectorStoreIndex.from_documents(self.documents, show_progress=self.verbose)
 
             self.logger.info(f"Persisting index to {self.storage_dir} storage ...")
             index.storage_context.persist(persist_dir=self.storage_dir)
@@ -105,7 +107,7 @@ class Index:
         if self.__storage_exists():
             self.logger.info(f"Loading existing index from {self.storage_dir} storage ...")
             storage_context = StorageContext.from_defaults(persist_dir=self.storage_dir)
-            index = load_index_from_storage(storage_context, service_context=self.service_context)
+            index = load_index_from_storage(storage_context)
         else:
             self.logger.info(f"No storage found at {self.storage_dir} from which to load the index")
 
