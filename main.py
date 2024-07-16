@@ -2,12 +2,12 @@ import argparse
 from config import Config
 from loader.reader import DataReader
 from loader.index import Index
+from llm.llm import Llm
 
 
 def load_index_and_run_engine(config):
     index = Index(
         storage_dir=config.storage_dir,
-        model_type=config.model_type
     ).load()
 
     chat_engine = index.as_chat_engine(similarity_top_k=3, chat_mode="context")
@@ -31,7 +31,6 @@ def load_data_and_store_index(config):
     _ = Index(
         storage_dir=config.storage_dir,
         documents=docs,
-        model_type=config.model_type
     ).persist()
 
 
@@ -62,6 +61,8 @@ def main():
     args = parser.parse_args()
 
     config = Config()
+
+    Llm(model_type=config.model_type).set()
 
     if args.load_data:
         load_data_and_store_index(config)
