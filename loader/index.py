@@ -1,6 +1,8 @@
 import logging
 import os.path
 from llama_index.core import VectorStoreIndex, StorageContext, load_index_from_storage
+from llama_index.core.memory import ChatMemoryBuffer
+from llama_index.core.chat_engine.types import ChatMode
 
 
 class Index:
@@ -22,34 +24,42 @@ class Index:
         :return: The index from documents
         """
 
-        index = None
-        if self.documents is not None and self.storage_dir is not None:
-            self.logger.info("Building index over the documents ...")
-            index = VectorStoreIndex.from_documents(self.documents, show_progress=self.verbose)
+        if self.documents is None or self.storage_dir is None:
+            self.logger.error(f"Documents or index storage path not provided, skipping index creation")
+            return
 
-            self.logger.info(f"Persisting index to {self.storage_dir} storage ...")
-            index.storage_context.persist(persist_dir=self.storage_dir)
-        else:
-            self.logger.info(f"Documents or index storage path not provided, skipping index creation")
+        self.logger.info("Building index over the documents ...")
+        index = VectorStoreIndex.from_documents(self.documents, show_progress=self.verbose)
+
+        self.logger.info(f"Persisting index to {self.storage_dir} storage ...")
+        index.storage_context.persist(persist_dir=self.storage_dir)
 
         return index
 
     def load(self):
         """
-        Loads the index from the given storage directory.
+        Loads the index from the given storage directory and convert it to a chat engine
 
-        :return: The index from storage context
+        :return: The chat engine
         """
 
-        index = None
-        if self.__storage_exists():
-            self.logger.info(f"Loading existing index from {self.storage_dir} storage ...")
-            storage_context = StorageContext.from_defaults(persist_dir=self.storage_dir)
-            index = load_index_from_storage(storage_context)
-        else:
-            self.logger.info(f"No storage found at {self.storage_dir} from which to load the index")
+        if not self.__storage_exists():
+            self.logger.error(f"No storage found at {self.storage_dir} from which to load the index")
+            return
 
-        return index
+        self.logger.info(f"Loading existing index from {self.storage_dir} storage ...")
+        storage_context = StorageContext.from_defaults(persist_dir=self.storage_dir)
+        index = load_index_from_storage(storage_context)
+
+        memory = ChatMemoryBuffer.from_defaults(token_limit=1500)
+
+        chat_engine = index.as_chat_engine(
+            similarity_top_k=3,
+            chat_mode=ChatMode.CONTEXT,
+            memory=memory
+        )
+
+        return chat_engine
 
     def __storage_exists(self):
         return os.path.exists(self.storage_dir)

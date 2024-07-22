@@ -6,18 +6,18 @@ from llm.llm import Llm
 
 
 def load_index_and_run_engine(config):
-    index = Index(
+    chat_engine = Index(
         storage_dir=config.storage_dir,
     ).load()
 
-    chat_engine = index.as_chat_engine(similarity_top_k=3, chat_mode="context")
     while True:
         query_str = input("\nQ: ")
-        if query_str == "exit":
-            print("Cya!")
-            break
-        if query_str.strip() == "":
-            continue
+        match query_str.strip().casefold():
+            case "exit":
+                print("Cya!")
+                break
+            case "":
+                continue
 
         streaming_response = chat_engine.stream_chat(query_str)
         for token in streaming_response.response_gen:

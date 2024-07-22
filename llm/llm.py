@@ -43,10 +43,10 @@ class Llm:
 
     def __get_llm(self, model_type):
         """
-        It sets the llm context for the given model type.
+        It loads the relative llm for the given model type.
 
         :param model_type: The LLM model type
-        :return: The service context
+        :return: The LLM
         """
 
         match model_type:
